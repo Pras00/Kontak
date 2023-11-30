@@ -8,13 +8,14 @@ class TestContactManager(unittest.TestCase):
     def setUp(self):
         self.contact_manager = ContactManager()
 
-
     # Create Contact
 
     def test_create_contact(self):
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.contact_manager.create_contact("Prass", "082135776489")
-            self.assertEqual(mock_stdout.getvalue().strip(), "Kontak 'Prass' dengan nomor '082135776489' berhasil ditambahkan.")
+        expected_output = "Kontak 'Prass' dengan nomor '082135776489' berhasil ditambahkan."
+        actual_output = mock_stdout.getvalue().strip()
+        self.assertEqual(actual_output, expected_output)
 
     # Show Contact
 
@@ -92,7 +93,7 @@ class TestContactManager(unittest.TestCase):
         expected_output = "Kontak 'Prass' dengan nomor '1234567890' berhasil ditambahkan."
         actual_output = mock_stdout.getvalue().strip()
         self.assertEqual(actual_output, expected_output)
-        
+
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.contact_manager.delete_contact("Prass")
         expected_output = f"Kontak dengan nama Prass berhasil dihapus."
