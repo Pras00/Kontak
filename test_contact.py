@@ -19,7 +19,12 @@ class TestContactManager(unittest.TestCase):
     # Show Contact
 
     def test_show_contact(self):
-        self.contact_manager.create_contact("Prass", "1234567890")
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            self.contact_manager.create_contact("Prass", "1234567890")
+        expected_output = "Kontak 'Prass' dengan nomor '1234567890' berhasil ditambahkan."
+        actual_output = mock_stdout.getvalue().strip()
+        self.assertEqual(actual_output, expected_output)
+
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.contact_manager.show_contact()
         expected_output = "Daftar Kontak:\n1. Nama: Prass, Nomor Telepon: 1234567890"
@@ -36,7 +41,12 @@ class TestContactManager(unittest.TestCase):
     # Search Contact
 
     def test_search_contact_found(self):
-        self.contact_manager.create_contact("Prass", "1234567890")
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            self.contact_manager.create_contact("Prass", "1234567890")
+        expected_output = "Kontak 'Prass' dengan nomor '1234567890' berhasil ditambahkan."
+        actual_output = mock_stdout.getvalue().strip()
+        self.assertEqual(actual_output, expected_output)
+
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.contact_manager.search_contact("Prass")
         expected_output = "Kontak ditemukan:\nNama: Prass, Nomor Telepon: 1234567890"
@@ -53,7 +63,12 @@ class TestContactManager(unittest.TestCase):
     # Edit Contact
 
     def test_edit_contact(self):
-        self.contact_manager.create_contact("Prass", "1234567890")
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            self.contact_manager.create_contact("Prass", "1234567890")
+        expected_output = "Kontak 'Prass' dengan nomor '1234567890' berhasil ditambahkan."
+        actual_output = mock_stdout.getvalue().strip()
+        self.assertEqual(actual_output, expected_output)
+
         with patch('builtins.input', side_effect=['9999999999']):
             with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
                 self.contact_manager.edit_contact("Prass")
@@ -72,7 +87,12 @@ class TestContactManager(unittest.TestCase):
     # Delete Contact
 
     def test_delete_contact_found(self):
-        self.contact_manager.create_contact("Prass", "1234567890")
+        with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
+            self.contact_manager.create_contact("Prass", "1234567890")
+        expected_output = "Kontak 'Prass' dengan nomor '1234567890' berhasil ditambahkan."
+        actual_output = mock_stdout.getvalue().strip()
+        self.assertEqual(actual_output, expected_output)
+        
         with patch('sys.stdout', new_callable=StringIO) as mock_stdout:
             self.contact_manager.delete_contact("Prass")
         expected_output = f"Kontak dengan nama Prass berhasil dihapus."
